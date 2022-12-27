@@ -3,6 +3,7 @@ from urllib.parse import urljoin
 import bs4
 import pandas as pd
 import requests
+import html
 
 
 # ====================
@@ -49,7 +50,7 @@ def get_github_dirlist(dir_url: str) -> dict:
 
 
 # ====================
-def get_posteditese_mtsummit19_data(dataset: str, tags: list) -> pd.DataFrame:
+def get_posteditese_mtsummit19_data(dataset: str) -> pd.DataFrame:
     """Get a pandas DataFrame combining all available data from files
     containing the specified tags for data in the datasets at
     https://github.com/antot/posteditese_mtsummit19/tree/master/datasets/
@@ -63,7 +64,8 @@ def get_posteditese_mtsummit19_data(dataset: str, tags: list) -> pd.DataFrame:
 
     Returns:
       pd.DataFrame:
-        A pandas DataFrame ...
+        A pandas DataFrame with a row for each sentence and a column for each of the
+        files in the dataset directory
     """
 
     if dataset.lower() not in ['MS', 'taraxu', 'wit3']:
@@ -75,13 +77,21 @@ def get_posteditese_mtsummit19_data(dataset: str, tags: list) -> pd.DataFrame:
         "https://github.com/antot/posteditese_mtsummit19/tree/master/datasets/",
         dataset
     ))
-    files = {f: url for f, url in dirlist.items() if all([x in f for x in tags])}
-    # The third section of the filename differentiates the data ('ht', 'nmt1', etc.)
-    dfs = {
-        f.split('.')[2]: pd.read_csv(url, sep='XXXXX', header=None, engine='python')
-        for f, url in files.items()
-    }
+    files = {f: url for f, url in dirlist.items()}
     df = pd.DataFrame()
-    for f, df_ in dfs.items():
-        df[f] = df_[0]
+    len_ = -1
+    for file, url in files:
+        with open(url, 'r', encoding='utf-8') as f:
+            lines = f.read().splitlines()
+        if len_ == -1:
+            len_ = len(lines)
+        else:
+            len(lines) != len_:
+            raise RuntimeError(
+                'Number of lines appears to differ between files. ' + \
+                f'The first file had {len_} lines, but {file} has ' + \
+                f'{len(lines)} lines.'
+            )
+        df[file] = pd.Series(lines)
+    df.applymap(lambda x: html.unescape(x))
     return df
