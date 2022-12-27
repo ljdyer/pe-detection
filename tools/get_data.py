@@ -1,7 +1,8 @@
-import requests
+from urllib.parse import urljoin
+
 import bs4
 import pandas as pd
-from urllib.parse import urljoin
+import requests
 
 
 # ====================
@@ -25,7 +26,10 @@ def get_github_dir(dir_url: str) -> dict:
     names = [a.text for a in soup.find_all("a", {"class": "js-navigation-open Link--primary"})]
     icons = soup.find_all("svg", attrs={"aria-label": ['File', 'Directory']})
     dir_or_file = [icon['aria-label'] for icon in icons]
-    raw_file_root = dir_url.replace('github.com', 'raw.githubusercontent.com')
+    raw_file_root = (dir_url
+        .replace('github.com', 'raw.githubusercontent.com')
+        .replace('/tree', '')
+    )
     dirlist = {
         name: 'DIR' if dir_or_file == 'Directory' else urljoin(raw_file_root, name)
         for name, dir_or_file in zip(names, dir_or_file)}
