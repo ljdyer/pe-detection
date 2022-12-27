@@ -20,9 +20,10 @@ def get_sentence_numbers(path: str) -> List[Tuple[int, int]]:
     with open(path, 'r', encoding='utf-8') as f:
         file_lines = f.read().splitlines()
     line_numbers = [
-        tuple([int(x) for x in line.split(':').split()])
+        tuple([int(x) for x in line.split(':')[0].split()])
         for line in file_lines
     ]
+    return line_numbers
 
 
 # ====================
