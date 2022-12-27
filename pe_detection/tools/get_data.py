@@ -86,12 +86,12 @@ def get_posteditese_mtsummit19_data(dataset: str) -> pd.DataFrame:
         if len_ == -1:
             len_ = len(lines)
         else:
-            len(lines) != len_:
-            raise RuntimeError(
-                'Number of lines appears to differ between files. ' + \
-                f'The first file had {len_} lines, but {file} has ' + \
-                f'{len(lines)} lines.'
-            )
+            if len(lines) != len_:
+                raise RuntimeError(
+                    'Number of lines appears to differ between files. ' + \
+                    f'The first file had {len_} lines, but {file} has ' + \
+                    f'{len(lines)} lines.'
+                )
         df[file] = pd.Series(lines)
     df.applymap(lambda x: html.unescape(x))
     return df
