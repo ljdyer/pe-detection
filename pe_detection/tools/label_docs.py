@@ -26,7 +26,7 @@ def get_sentence_numbers(path: str) -> List[Tuple[int, int]]:
 
 
 # ====================
-def add_doc_numbers(sents_df: pd.DataFrame, sent_numbers_path: str) -> pd.DataFrame, int:
+def add_doc_labels(sents_df: pd.DataFrame, sent_numbers_path: str) -> pd.DataFrame, int:
     """Add document labels to a DataFrame based on information from a text file"""
 
     sentence_numbers = get_sentence_numbers(sent_numbers_path)
