@@ -77,10 +77,10 @@ def get_posteditese_mtsummit19_data(dataset: str) -> pd.DataFrame:
         "https://github.com/antot/posteditese_mtsummit19/tree/master/datasets/",
         dataset
     ))
-    files = {f: url for f, url in dirlist.items()}
+    files = {f: url for f, url in dirlist.items() if url != 'DIR'}
     df = pd.DataFrame()
     len_ = -1
-    for file, url in files:
+    for file, url in files.items():
         with open(url, 'r', encoding='utf-8') as f:
             lines = f.read().splitlines()
         if len_ == -1:
