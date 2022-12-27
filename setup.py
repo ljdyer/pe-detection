@@ -8,13 +8,13 @@ REQUIREMENTS = [
 
 setup(
     name='pe_detection',
-    version='0.0003',
+    version='0.0004',
     description="""\
 Tools for PE detection work.
 """,
     author='Laurence Dyer',
     author_email='ljdyer@gmail.com',
     url='https://github.com/ljdyer/pe-detection',
-    packages=['tools'],
+    packages=['pe_detection'],
     install_requires=REQUIREMENTS
 )
