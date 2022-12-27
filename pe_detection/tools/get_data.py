@@ -34,7 +34,7 @@ def get_github_dirlist(dir_url: str) -> dict:
     """
     
     page = requests.get(dir_url).text
-    soup = bs4.BeautifulSoup(page)
+    soup = bs4.BeautifulSoup(page, features='lxml')
     names = [a.text for a in soup.find_all("a", {"class": "js-navigation-open Link--primary"})]
     icons = soup.find_all("svg", attrs={"aria-label": ['File', 'Directory']})
     dir_or_file = [icon['aria-label'] for icon in icons]
@@ -77,7 +77,7 @@ def get_posteditese_mtsummit19_data(dataset: str, tags: list) -> pd.DataFrame:
     files = {f: url for f, url in dirlist.items() if all([x in f for x in tags])}
     # The third section of the filename differentiates the data ('ht', 'nmt1', etc.)
     dfs = {
-        f.split('.')[2]: pd.read_csv(url, sep='XXXXX', header=None)
+        f.split('.')[2]: pd.read_csv(url, sep='XXXXX', header=None, engine='python')
         for f, url in files.items()
     }
     df = pd.DataFrame()
