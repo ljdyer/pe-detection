@@ -92,5 +92,5 @@ def get_posteditese_mtsummit19_data(dataset: str) -> pd.DataFrame:
                     f'{len(lines)} lines.'
                 )
         df[file] = pd.Series(lines)
-    df.applymap(lambda x: html.unescape(x))
+    df = df.applymap(lambda x: html.unescape(x))
     return df
