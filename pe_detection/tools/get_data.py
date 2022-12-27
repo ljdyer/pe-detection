@@ -81,8 +81,7 @@ def get_posteditese_mtsummit19_data(dataset: str) -> pd.DataFrame:
     df = pd.DataFrame()
     len_ = -1
     for file, url in files.items():
-        with open(url, 'r', encoding='utf-8') as f:
-            lines = f.read().splitlines()
+        lines = requests.get(url).text.splitlines()
         if len_ == -1:
             len_ = len(lines)
         else:
