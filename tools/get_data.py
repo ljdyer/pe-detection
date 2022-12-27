@@ -29,7 +29,7 @@ def get_github_dir(dir_url: str) -> dict:
     raw_file_root = (dir_url
         .replace('github.com', 'raw.githubusercontent.com')
         .replace('/tree', '')
-    )
+    ) + '/'
     dirlist = {
         name: 'DIR' if dir_or_file == 'Directory' else urljoin(raw_file_root, name)
         for name, dir_or_file in zip(names, dir_or_file)}
