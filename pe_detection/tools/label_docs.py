@@ -28,7 +28,22 @@ def get_sentence_numbers(path: str) -> List[Tuple[int, int]]:
 
 # ====================
 def add_doc_labels(sents_df: pd.DataFrame, sent_numbers_path: str) -> pd.DataFrame:
-    """Add document labels to a DataFrame based on information from a text file"""
+    """Add document labels to a DataFrame based on information from a text file
+
+    Args:
+      sents_df (pd.DataFrame):
+        A DataFrame in which each row contains a single sentence.
+      sent_numbers_path (str):
+        The path to the text file. Each line in the text file should begin
+        with a pair of integers separated by a hyphen indicating the range of
+        sentence numbers, followed by a colon.
+        E.g. '514-599: https://shukepianblog.wordpress.com/'
+
+    Returns:
+      pd.DataFrame:
+        The original DataFrame with an extra column, doc_idx containing an index
+        uniquely identifying the document to which each sentence belongs.
+    """
 
     sentence_numbers = get_sentence_numbers(sent_numbers_path)
     labelled = sents_df.copy()
@@ -37,3 +52,26 @@ def add_doc_labels(sents_df: pd.DataFrame, sent_numbers_path: str) -> pd.DataFra
         for i in range(first_line, last_line+1):
             labelled.at[i, 'doc_idx'] = int(doc_idx)
     return labelled
+
+
+# ====================
+def show_doc_start_end_src(df: pd.DataFrame, src_col_label: str):
+    """Show the first and last sentence of the source text of each document
+    in a DataFrame.
+
+    Args:
+      df (pd.DataFrame):
+        The DataFrame
+      src_col_label (str):
+        The label of a column containing the source text
+        (e.g. 'ted.en-fr.src.en.norm.tok')
+    """
+
+    doc_idxs = set(df['doc_idx'].to_list())
+    for doc_idx in doc_idxs:
+        print(doc_idx)
+        doc_df = df[df['doc_idx'] == doc_idx]
+        print(doc_df.iloc[0][src_col_label])
+        print('...')
+        print(doc_df.iloc[-1][src_col_label])
+        print()
