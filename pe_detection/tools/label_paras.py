@@ -74,7 +74,8 @@ def get_smallest_partition(lis_: List[int],
 def get_possible_partitions(remaining: list,
                             min_: int,
                             max_: int,
-                            so_far: Optional[list] = None) -> Generator[List[list]]:
+                            so_far: Optional[list] = None
+                            ) -> Generator[List[list], None, None]:
     """A recursive generator function to yield partitions of a list such
     that the sum of the integers in each sub-list is no less than min_,
     but the maximum sum of a integers in any sub-list is no greater than max_.
