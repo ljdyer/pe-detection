@@ -40,3 +40,4 @@ def sents_df_to_paras_df(df: pd.DataFrame):
                     paras_df.at[next_idx, col] = ' '.join(doc_df[doc_df['para_idx'] == para_idx][col].to_list())
                 paras_df.at[next_idx, 'doc_idx'] = doc_idx
                 paras_df.at[next_idx, 'para_idx'] = para_idx
+    return paras_df
