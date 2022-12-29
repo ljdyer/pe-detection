@@ -74,3 +74,9 @@ def token_counts_df(df: pd.DataFrame,
     for c in columns_to_count:
         counts_df[c] = counts_df[c].apply(lambda x: num_tokens(x))
     return counts_df
+
+
+# ====================
+def col_token_count(df: pd.DataFrame, col: str) -> int:
+
+    return token_counts_df(df[col]).sum()
