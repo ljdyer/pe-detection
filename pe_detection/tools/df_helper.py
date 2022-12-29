@@ -79,4 +79,4 @@ def token_counts_df(df: pd.DataFrame,
 # ====================
 def col_token_count(df: pd.DataFrame, col: str) -> int:
 
-    return token_counts_df(df[col]).sum()
+    return token_counts_df(df[[col]]).sum()
