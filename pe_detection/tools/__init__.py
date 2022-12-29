@@ -6,3 +6,4 @@ from pe_detection.tools.label_docs import get_sentence_numbers
 from pe_detection.tools.label_docs import add_doc_labels
 from pe_detection.tools.label_docs import show_doc_start_end_src
 from pe_detection.tools.label_paras import add_para_labels
+from pe_detection.tools.df_helper import sents_df_to_paras_df
