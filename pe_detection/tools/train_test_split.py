@@ -80,24 +80,58 @@ def best_split(doc_token_counts: Dict[int, int],
 def n_best_splits(doc_token_counts: Dict[int, int],
                   desired_test_ratio: float,
                   n: int) -> List[Tuple[List[int], List[int], float]]:
+    """Return the n distinct train/test splits (with no document included
+    in the test set in more than one split) for which the ratio of document
+    tokens in test/train sets is the closest to desired_test_ratio
+
+    Args:
+      doc_token_counts (Dict[int, int]):
+        A dictionary of document token counts (can be obtained using
+        get_doc_token_counts).
+      desired_test_ratio (float):
+        The desired ratio of test to train tokens (e.g. 0.2).
+      n (int):
+        The number of splits to return.
+
+    Returns:
+      List[Tuple[List[int], List[int], float]]: _description_
+        A list of tuples each containing a list of document indices in
+        the train set, a list of document indices in the test set,
+        and the ratio of tokens between the test and train sets.
+        The splits are ordered from best to worst.
+    """                  
 
     best_splits = []
     must_be_train = []
     for i in range(n):
-        next_best = best_split(doc_token_counts, desired_test_ratio, must_be_train)
-        best_splits.append(next_best)
-        must_be_train.extend(next_best[1])
         if set(must_be_train) == set(doc_token_counts.keys()):
             print(
                 'No more documents that can be included in test set. ' + \
-                f'Returning {i+1} best splits.'
+                f'Returning {i} best splits.'
             )
             break
+        next_best = best_split(doc_token_counts, desired_test_ratio, must_be_train)
+        best_splits.append(next_best)
+        must_be_train.extend(next_best[1])
     return best_splits
 
 
 # ====================
-def train_test_split(df: pd.DataFrame, doc_idxs_train: list):
+def train_test_split(df: pd.DataFrame,
+                     doc_idxs_train: List[int]) -> Tuple[pd.DataFrame, pd.DataFrame]:
+    """Split a DataFrame into train and test DataFrames based on the document
+    indices in the doc_idx column
+
+    Args:
+      df (pd.DataFrame):
+        The original DataFrame. Must include a column named 'doc_idx.
+      doc_idxs_train (List[int]):
+        The indices of the documents to include in the train set.
+
+    Returns:
+      Tuple[pd.DataFrame, pd.DataFrame]:
+        A tuple containing the train DataFrame and the test DataFrame
+    """    
 
     train_df = df[df['doc_idx'].isin(doc_idxs_train)]
     test_df = df[~df['doc_idx'].isin(doc_idxs_train)]
