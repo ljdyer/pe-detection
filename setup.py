@@ -6,7 +6,7 @@ REQUIREMENTS = [
     'numpy',
     'pandas',
     'requests',
-    'sklearn==1.0.2'
+    'scikit-learn==1.0.2'
 ]
 
 setup(
