@@ -1,16 +1,17 @@
-from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
-from sklearn.naive_bayes import MultinomialNB
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.pipeline import Pipeline
-from sklearn.metrics import precision_recall_fscore_support
-from sklearn.metrics import accuracy_score
+from typing import Optional
+
 import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
+from sklearn.metrics import accuracy_score, precision_recall_fscore_support
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.pipeline import Pipeline
 
 
 # ====================
 def train_model(train_df: pd.DataFrame,
-                x_label: str = 'x',
-                y_label: str = 'y'):
+                x_label: Optional[str] = 'x',
+                y_label: Optional[str] = 'y') -> Pipeline:
 
     text_clf = Pipeline([
         (
@@ -28,3 +29,12 @@ def train_model(train_df: pd.DataFrame,
     return text_clf
 
 
+# ====================
+def evaluate_model(model: Pipeline,
+                   test_df: pd.DataFrame,
+                   x_label: Optional[str] = 'x',
+                   y_label: Optional[str] = 'y') -> float:
+
+    y_true = test_df[y_label].to_list()
+    y_pred = model.predict(test_df[x_label])
+    return accuracy_score(y_true, y_pred)
