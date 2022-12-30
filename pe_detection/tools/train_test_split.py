@@ -21,6 +21,8 @@ def best_split(doc_token_counts: Dict[int, int],
                ) -> Tuple[List[int], List[int], float]:
     """Work out train/test split that gets ratio of tokens as close as possible to 0.2"""
 
+    if must_be_train is None:
+        must_be_train = []
     num_docs = len(doc_token_counts.keys())
     total_toks = sum(doc_token_counts.values())
     splits = []
