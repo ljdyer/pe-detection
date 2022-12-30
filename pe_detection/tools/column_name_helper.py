@@ -17,10 +17,13 @@ def parse_columns(df: pd.DataFrame) -> dict:
         this_lp = [c for c in columns if lp in c]
         translation_modes = set([c.split('.')[2] for c in this_lp])
         types = set([alpha_part(c) for c in translation_modes])
-        translation_modes_dict = {
-            type_: [c for c in translation_modes if alpha_part(c) == type_]
-            for type_ in types
-        }
+        translation_modes_dict = {}
+        for type_ in types:
+            modes = [c for c in translation_modes if alpha_part(c) == type_]
+            if len(modes) == 1:
+                translation_modes_dict[type_] = modes[0]
+            else:
+                translation_modes_dict[type_] = modes
         data['translation_modes'][lp] = translation_modes_dict
     return data
 
