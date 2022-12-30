@@ -5,18 +5,19 @@ REQUIREMENTS = [
     'matplotlib',
     'numpy',
     'pandas',
-    'requests'
+    'requests',
+    'sklearn==1.0.2'
 ]
 
 setup(
     name='pe_detection',
-    version='0.0038',
+    version='0.0039',
     description="""\
 Tools for PE detection work.
 """,
     author='Laurence Dyer',
     author_email='ljdyer@gmail.com',
     url='https://github.com/ljdyer/pe-detection',
-    packages=['pe_detection.tools'],
+    packages=['pe_detection.tools', 'pe_detection.learn.naive_bayes'],
     install_requires=REQUIREMENTS
 )
