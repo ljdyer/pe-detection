@@ -1,4 +1,4 @@
 @ECHO OFF
 git add *
-git commit --message=0.0043
+git commit --message=%1
 git push
