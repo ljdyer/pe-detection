@@ -13,3 +13,4 @@ from pe_detection.tools.visualization import token_counts_histogram
 from pe_detection.tools.train_test_split import train_test_split
 from pe_detection.tools.train_test_split import get_doc_token_counts
 from pe_detection.tools.train_test_split import best_split
+from pe_detection.tools.train_test_split import n_best_splits
