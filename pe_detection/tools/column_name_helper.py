@@ -23,7 +23,7 @@ def parse_columns(df: pd.DataFrame) -> dict:
             if len(modes) == 1:
                 translation_modes_dict[type_] = modes[0]
             else:
-                translation_modes_dict[type_] = modes
+                translation_modes_dict[type_] = sorted(modes)
         data['translation_modes'][lp] = translation_modes_dict
     return data
 
