@@ -17,3 +17,8 @@ def num_tokens(doc: str) -> int:
 
     return len(doc.split())
 
+
+# ====================
+def alpha_part(str_: str) -> str:
+
+    return ''.join([c for c in str_ if c.isalpha()])
