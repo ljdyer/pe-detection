@@ -47,10 +47,16 @@ def n_best_splits(doc_token_counts: Dict[int, int],
 
     best_splits = []
     must_be_train = []
-    for _ in n:
+    for i in range(n):
         next_best = best_split(doc_token_counts, desired_test_ratio, must_be_train)
         best_splits.append(next_best)
         must_be_train.extend(next_best[0])
+        if set(must_be_train) == set(doc_token_counts.keys()):
+            print(
+                'No more documents that can be included in test set. ' + \
+                f'Returning {i+1} best splits.'
+            )
+            break
     return best_splits
 
 
