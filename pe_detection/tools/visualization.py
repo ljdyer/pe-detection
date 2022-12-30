@@ -1,10 +1,11 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib.cm import get_cmap
-import matplotlib.patches as mpatches
-from math import floor, ceil
-from numpy import linspace
+from math import ceil, floor
 from typing import Optional
+
+import matplotlib.patches as mpatches
+import matplotlib.pyplot as plt
+import pandas as pd
+from matplotlib.cm import get_cmap
+from numpy import linspace
 
 
 # ====================

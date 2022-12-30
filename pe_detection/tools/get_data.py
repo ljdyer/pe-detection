@@ -1,9 +1,9 @@
+import html
 from urllib.parse import urljoin
 
 import bs4
 import pandas as pd
 import requests
-import html
 
 
 # ====================

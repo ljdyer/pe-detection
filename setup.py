@@ -2,8 +2,10 @@ from setuptools import setup
 
 REQUIREMENTS = [
     'beautifulsoup4',
-    'requests',
-    'pandas'
+    'matplotlib',
+    'numpy',
+    'pandas',
+    'requests'
 ]
 
 setup(
