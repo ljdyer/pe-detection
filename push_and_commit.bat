@@ -1,3 +1,4 @@
 @ECHO OFF
-ECHO Hello World!
-PAUSE
+git add *
+git commit --message=0.0043
+git push
