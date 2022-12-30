@@ -1,5 +1,4 @@
 import pandas as pd
-from typing import Optional
 from pe_detection.tools.text_helper import alpha_part
 
 
