@@ -14,4 +14,4 @@ from pe_detection.tools.train_test_split import (best_split,
                                                  train_test_split)
 from pe_detection.tools.visualization import token_counts_histogram
 from pe_detection.tools.transform_data import paras_df_to_xy_df
-from column_name_helper import get_column_name, parse_columns
+from pe_detection.tools.column_name_helper import get_column_name, parse_columns
