@@ -19,5 +19,5 @@ def pandas_options(options: List[Tuple]):
 @contextmanager
 def show_all_rows():
 
-    with pandas_options(['display.max_rows', None]):
+    with pandas_options([('display.max_rows', None)]):
         yield
