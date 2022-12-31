@@ -1,10 +1,11 @@
-from typing import Optional, List, Dict
+from typing import Optional, List, Dict, Union
 import pandas as pd
 
 
 # ====================
 def paras_df_to_xy_df(paras_df: pd.DataFrame,
-                      cols_to_classes: Dict[str, str]) -> pd.DataFrame:
+                      cols_to_classes: Dict[str, str],
+                      cols_to_keep: Optional[Union[List[str], Dict[str, str]]] = None) -> pd.DataFrame:
     """Take data from a pandas DataFrame with columns for different
     text types and a row for each paragraph and return a DataFrame
     with paragraphs in the 'x' column and class labels in the 'y' column
@@ -20,30 +21,31 @@ def paras_df_to_xy_df(paras_df: pd.DataFrame,
                 'ted.en-de.ht.de.norm': 'ht',
                 'ted.en-de.penmt1.de.norm': 'pe'
             }
+      cols_to_keep (Optional[Union[List[str], Dict[str, str]]], optional):
+        Other columns to keep in the output DataFrame. May be a list of
+        column labels or a dictionary mapping existing column labels to 
+        new column labels. Defaults to None.
 
     Returns:
       pd.DataFrame:
         A DataFrame with columns 'x' (for paragraphs) and 'y' (for class
-        labels)
+        labels), as well as any other columns that were kept.
     """
 
+    if cols_to_keep is None:
+        cols_to_keep = dict()
+    elif isinstance(cols_to_keep, list):
+        cols_to_keep = {x: x for x in cols_to_keep}
     col_dfs = {
-        col: (paras_df[[col]]).rename(columns={col: 'x'}).assign(y=class_)
+        col: ((paras_df[cols_to_keep + [col]])
+            .rename(columns={col: 'x'})
+            .rename(columns=cols_to_keep)
+            .assign(y=class_)
+        )
         for col, class_ in cols_to_classes.items()
     }
     return pd.concat(col_dfs, ignore_index=True)
-
     
-
-    
-
-
-
-
-
-
-
-
 
 
 
