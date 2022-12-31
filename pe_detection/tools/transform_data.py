@@ -37,7 +37,7 @@ def paras_df_to_xy_df(paras_df: pd.DataFrame,
     elif isinstance(cols_to_keep, list):
         cols_to_keep = {x: x for x in cols_to_keep}
     col_dfs = {
-        col: ((paras_df[cols_to_keep + [col]])
+        col: ((paras_df[cols_to_keep.keys() + [col]])
             .rename(columns={col: 'x'})
             .rename(columns=cols_to_keep)
             .assign(y=class_)
