@@ -57,13 +57,14 @@ def add_doc_labels(sents_df: pd.DataFrame, sent_numbers_path: str) -> pd.DataFra
 
 
 # ====================
-def show_doc_start_end_src(df: pd.DataFrame, src_col_label: str):
-    """Show the first and last sentence of the source text of each document
-    in a DataFrame.
+def show_doc_start_end(df: pd.DataFrame, col_label: str):
+    """Show the entries of the col_label in the first and last rows
+    with each doc_idx in a pandas DataFrame.
 
     Args:
       df (pd.DataFrame):
-        The DataFrame
+        The DataFrame. Must contain a column called 'doc_idx' containing
+        document indices.
       src_col_label (str):
         The label of a column containing the source text
         (e.g. 'ted.en-fr.src.en.norm.tok')
@@ -74,7 +75,7 @@ def show_doc_start_end_src(df: pd.DataFrame, src_col_label: str):
     for doc_idx in doc_idxs:
         doc_df = df[df['doc_idx'] == doc_idx]
         row_dicts.append({
-            'start': doc_df.iloc[0][src_col_label],
-            'end': doc_df.iloc[-1][src_col_label]
+            'start': doc_df.iloc[0][col_label],
+            'end': doc_df.iloc[-1][col_label]
         })
     display(pd.DataFrame(row_dicts))
