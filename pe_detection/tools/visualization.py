@@ -94,5 +94,9 @@ def diffs_scatter(diffs_df: pd.DataFrame,
     ax.set_ylabel(dim2)
     ax.set_xlim([0, 1])
     ax.set_ylim([0, 1])
+    legend_patches = []
     for cat, pts, color_idx in zip(categories, points, [0.25, 0.75]):
-        scatter = ax.scatter(*pts, color=cividis(color_idx))
+        color = cividis(color_idx)
+        scatter = ax.scatter(*pts, color=color)
+        legend_patches.append(mpatches.Patch(color=color, label=cat))
+    ax.legend(handles=legend_patches)
