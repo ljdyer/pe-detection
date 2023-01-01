@@ -17,3 +17,4 @@ from pe_detection.tools.transform_data import paras_df_to_xy_df
 from pe_detection.tools.column_name_helper import get_column_name, parse_columns
 from pe_detection.tools.pandas_helper import pandas_options
 from pe_detection.tools.pandas_helper import show_all_rows
+from pe_detection.tools.colab_helper import surpress_output
