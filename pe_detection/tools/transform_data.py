@@ -47,6 +47,18 @@ def paras_df_to_xy_df(paras_df: pd.DataFrame,
     return pd.concat(col_dfs, ignore_index=True)
     
 
+# ====================
+def train_test_df_to_xy_dfs(train_test_df: pd.DataFrame,
+                            cols_to_classes: Dict[str, str],
+                            cols_to_keep: Optional[Union[List[str], Dict[str, str]]] = None
+                            ) -> pd.DataFrame:
+
+    train = train_test_df[train_test_df['role'] == 'train']
+    test = train_test_df[train_test_df['role'] == 'test']
+    train_ = paras_df_to_xy_df(train, cols_to_classes, cols_to_keep)
+    test_ = paras_df_to_xy_df(test, cols_to_classes, cols_to_keep)
+    return train_, test_
+
 
 
 # def split_by_column(df: pd.DataFrame, column: str) -> dict:
