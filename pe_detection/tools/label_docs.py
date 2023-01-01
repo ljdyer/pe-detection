@@ -89,3 +89,5 @@ def add_role_labels(df: pd.DataFrame,
     doc_idxs = set(df['doc_idx'].to_list())
     assert doc_idxs == set(train_docs + test_docs)
     df['role'] = df['doc_idx'].apply(lambda x: 'train' if x in train_docs else 'test')
+    return df
+    
