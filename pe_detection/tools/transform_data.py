@@ -88,7 +88,7 @@ def ngram_overlap(text1, text2, n) -> float:
 
     ngrams1 = set(windowed(text1.split(), n=n, step=n))
     ngrams2 = set(windowed(text2.split(), n=n, step=n))
-    ngram_overlap = len(ngrams1.intersection(ngrams2) / len(ngrams1))
+    ngram_overlap = len(ngrams1.intersection(ngrams2)) / len(ngrams1)
     return ngram_overlap
 
 
