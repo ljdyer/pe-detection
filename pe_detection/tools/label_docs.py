@@ -1,5 +1,7 @@
 from typing import List, Tuple
+
 import pandas as pd
+
 
 # ====================
 def get_sentence_numbers(path: str) -> List[Tuple[int, int]]:
@@ -68,10 +70,11 @@ def show_doc_start_end_src(df: pd.DataFrame, src_col_label: str):
     """
 
     doc_idxs = set(df['doc_idx'].to_list())
+    row_dicts = []
     for doc_idx in doc_idxs:
-        print(doc_idx)
         doc_df = df[df['doc_idx'] == doc_idx]
-        print(doc_df.iloc[0][src_col_label])
-        print('...')
-        print(doc_df.iloc[-1][src_col_label])
-        print()
+        row_dicts.append({
+            'start': doc_df.iloc[0][src_col_label],
+            'end': doc_df.iloc[-1][src_col_label]
+        })
+    display(pd.DataFrame(row_dicts))

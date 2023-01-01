@@ -1,6 +1,8 @@
 from itertools import chain
-from typing import List, Optional, Tuple, Generator
+from typing import Generator, List, Optional, Tuple
+
 import pandas as pd
+
 from pe_detection.tools.text_helper import num_tokens
 
 

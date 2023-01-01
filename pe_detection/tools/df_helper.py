@@ -1,6 +1,8 @@
-import pandas as pd
-from pe_detection.tools.text_helper import num_tokens
 from typing import Optional
+
+import pandas as pd
+
+from pe_detection.tools.text_helper import num_tokens
 
 
 # ====================
