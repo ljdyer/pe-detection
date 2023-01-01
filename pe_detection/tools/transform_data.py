@@ -67,7 +67,7 @@ def ngram_overlaps_df(df: pd.DataFrame,
                       x2_label: str,
                       ngrams: Tuple[int, int]) -> pd.DataFrame:
 
-    overlaps_df_rows = {}
+    overlaps_df_rows = []
     col_label_root = f"{x1_label}_{x2_label}_overlap"
     ngram_range = range(ngrams[0], ngrams[1]+1)
     for _, row in df.iterrows():
