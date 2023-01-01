@@ -4,7 +4,6 @@ from typing import Optional
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import pandas as pd
-import numpy as np
 from matplotlib.cm import get_cmap
 from numpy import linspace
 
@@ -78,4 +77,22 @@ def diffs_scatter(diffs_df: pd.DataFrame,
                   dim2: str,
                   title: str = None):
 
-    pass
+    cividis = get_cmap('cividis')
+    categories = list(set(diffs_df['y'].to_list()))
+    assert len(categories) == 2
+    points = [
+        (
+            [diffs_df[diffs_df['y'] == c][dim1].to_list()],
+            [diffs_df[diffs_df['y'] == c][dim2].to_list()]
+        )
+        for c in categories
+    ]
+    _, ax = plt.subplots()
+    if title is not None:
+        ax.set_title(title)
+    ax.set_xlabel(dim1)
+    ax.set_ylabel(dim2)
+    ax.set_xlim([0, 1])
+    ax.set_ylim([0, 1])
+    for cat, pts, color_idx in zip(categories, points, [0.25, 0.75]):
+        scatter = ax.scatter(*pts, color=cividis(0.25))
