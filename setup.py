@@ -11,7 +11,7 @@ REQUIREMENTS = [
 
 setup(
     name='pe_detection',
-    version='0.0065',
+    version='0.0066',
     description="""\
 Tools for PE detection work.
 """,
