@@ -69,7 +69,7 @@ def diffs_boxplot(diffs_df: pd.DataFrame,
     ax.set_xlabel(dim1)
     ax.set_ylabel('Mode')
     ax.set_xlim([0, 1])
-    boxplot = ax.boxplot(points, categories, vert=False)
+    boxplot = ax.boxplot(points, labels=categories, vert=False)
 
 
 # ====================
