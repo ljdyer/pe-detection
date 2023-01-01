@@ -92,23 +92,6 @@ def ngram_overlap(text1, text2, n) -> float:
     return ngram_overlap
 
 
-# ====================
-def xy_to_x_and_y(df: pd.DataFrame,
-                  x_cols: Optional[List[str]] = None,
-                  y_cols: Optional[List[str]] = None) -> Tuple[pd.DataFrame, pd.DataFrame]:
-
-    if x_cols is None:
-        x = df[[c for c in df.columns if c not in y_cols]]
-        y = df[[c for c in df.columns if c in y_cols]]
-    elif y_cols is None:
-        x = df[[c for c in df.columns if c in x_cols]]
-        y = df[[c for c in df.columns if c not in x_cols]]
-    else:
-        x = df[[c for c in df.columns if c in x_cols]]
-        y = df[[c for c in df.columns if c in y_cols]]
-    return x, y
-
-
 # def split_by_column(df: pd.DataFrame, column: str) -> dict:
 
 #     vals = df[column].to_list()
