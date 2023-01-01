@@ -61,19 +61,15 @@ def diffs_boxplot(diffs_df: pd.DataFrame,
                   dim1: str,
                   title: str = None):
 
-    categories = set(diffs_df['y'].to_list())
-    values = {}
-    for c in categories:
-        values[c] = diffs_df[diffs_df['y'] == 'ht'][dim1].to_list()
+    categories = list(set(diffs_df['y'].to_list()))
+    points = [diffs_df[diffs_df['y'] == c][dim1].to_list() for c in categories]
     _, ax = plt.subplots()
     if title is not None:
         ax.set_title(title)
     ax.set_xlabel(dim1)
     ax.set_ylabel('Mode')
     ax.set_xlim([0, 1])
-    boxplot = ax.boxplot(
-        list(categories.values()), labels=list(categories.keys()), vert=False
-    )
+    boxplot = ax.boxplot(points, categories, vert=False)
 
 
 # ====================
