@@ -95,4 +95,4 @@ def diffs_scatter(diffs_df: pd.DataFrame,
     ax.set_xlim([0, 1])
     ax.set_ylim([0, 1])
     for cat, pts, color_idx in zip(categories, points, [0.25, 0.75]):
-        scatter = ax.scatter(*pts, color=cividis(0.25))
+        scatter = ax.scatter(*pts, color=cividis(color_idx))
