@@ -1,4 +1,5 @@
-from typing import Optional, List, Dict, Union
+from typing import Optional, List, Dict, Union, Tuple
+from more_itertools import windowed
 import pandas as pd
 
 
@@ -58,6 +59,38 @@ def train_test_df_to_xy_dfs(train_test_df: pd.DataFrame,
     train_ = paras_df_to_xy_df(train, cols_to_classes, cols_to_keep)
     test_ = paras_df_to_xy_df(test, cols_to_classes, cols_to_keep)
     return train_, test_
+
+
+# ====================
+def ngram_overlaps_df(df: pd.DataFrame,
+                      x1_label: str,
+                      x2_label: str,
+                      ngrams: Tuple[int, int]) -> pd.DataFrame:
+
+    overlaps_df_rows = {}
+    col_label_root = f"{x1_label}_{x2_label}_overlap"
+    ngram_range = range(ngrams[0], ngrams[1]+1)
+    for _, row in df.iterrows():
+        this_row = {
+            f"{col_label_root}_{n}gram": ngram_overlap(row[x1_label], row[x2_label])
+            for n in ngram_range
+        }
+        overlaps_df_rows.append(this_row)
+    overlaps_df = pd.DataFrame(overlaps_df_rows)
+    other_cols = [c for c in df.columns if c not in [x1_label, x2_label]]
+    for c in other_cols:
+        overlaps_df[c] = df[c]
+    return overlaps_df
+
+
+# ====================
+def ngram_overlap(text1, text2, n) -> float:
+
+    ngrams1 = set(windowed(text1.split(), n=n, step=n))
+    ngrams2 = set(windowed(text2.split(), n=n, step=n))
+    ngram_overlap = len(ngrams1.intersection(ngrams2) / len(ngrams1))
+    return ngram_overlap
+
 
 
 

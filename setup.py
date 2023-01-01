@@ -6,12 +6,13 @@ REQUIREMENTS = [
     'numpy',
     'pandas',
     'requests',
-    'scikit-learn==1.0.2'
+    'scikit-learn==1.0.2',
+    'more_itertools'
 ]
 
 setup(
     name='pe_detection',
-    version='0.0073',
+    version='0.0074',
     description="""\
 Tools for PE detection work.
 """,
