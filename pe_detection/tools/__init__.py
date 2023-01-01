@@ -5,7 +5,7 @@ from pe_detection.tools.get_data import (get_github_dirlist,
                                          get_posteditese_mtsummit19_data)
 from pe_detection.tools.label_docs import (add_doc_labels,
                                            get_sentence_numbers,
-                                           show_doc_start_end_src)
+                                           show_doc_start_end)
 from pe_detection.tools.label_paras import add_para_labels
 from pe_detection.tools.text_helper import num_tokens
 from pe_detection.tools.train_test_split import (best_split,
