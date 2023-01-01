@@ -79,3 +79,13 @@ def show_doc_start_end(df: pd.DataFrame, col_label: str):
             'end': doc_df.iloc[-1][col_label]
         })
     display(pd.DataFrame(row_dicts))
+
+
+# ====================
+def add_role_labels(df: pd.DataFrame,
+                    train_docs: List[int],
+                    test_docs: List[int]) -> pd.DataFrame:
+
+    doc_idxs = set(df['doc_idx'].to_list())
+    assert doc_idxs == set(train_docs + test_docs)
+    df['role'] = df['doc_idx'].apply(lambda x: 'train' if x in train_docs else 'test')
