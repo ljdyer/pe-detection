@@ -4,6 +4,7 @@ from typing import Optional
 import matplotlib.patches as mpatches
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 from matplotlib.cm import get_cmap
 from numpy import linspace
 
@@ -41,3 +42,44 @@ def token_counts_histogram(token_counts_df: pd.DataFrame,
         legend_patches.append(mpatches.Patch(color=col_colors[col], label=col))
     axes[1].axis('off')
     axes[1].legend(handles=legend_patches, ncol=5)
+
+
+# ====================
+def visualize_diffs(diffs_df: pd.DataFrame,
+                    dim1: str,
+                    dim2: str = None,
+                    title: str = None):
+
+    if dim2 is None:
+        diffs_boxplot(diffs_df, dim1, title)
+    else:
+        diffs_scatter(diffs_df, dim1, dim2, title)
+
+
+# ====================
+def diffs_boxplot(diffs_df: pd.DataFrame,
+                  dim1: str,
+                  title: str = None):
+
+    categories = set(diffs_df['y'].to_list())
+    values = {}
+    for c in categories:
+        values[c] = diffs_df[diffs_df['y'] == 'ht'][dim1].to_list()
+    _, ax = plt.subplots()
+    if title is not None:
+        ax.set_title(title)
+    ax.set_xlabel(dim1)
+    ax.set_ylabel('Mode')
+    ax.set_xlim([0, 1])
+    boxplot = ax.boxplot(
+        list(categories.values()), labels=list(categories.keys()), vert=False
+    )
+
+
+# ====================
+def diffs_scatter(diffs_df: pd.DataFrame,
+                  dim1: str,
+                  dim2: str,
+                  title: str = None):
+
+    pass
