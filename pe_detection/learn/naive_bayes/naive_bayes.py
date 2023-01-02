@@ -1,4 +1,4 @@
-from typing import Optional, Tuple
+from typing import Optional, Tuple, Any
 
 import pandas as pd
 from sklearn.ensemble import RandomForestClassifier
@@ -10,6 +10,7 @@ from sklearn.pipeline import Pipeline
 
 # ====================
 def train_model(train_df: pd.DataFrame,
+                model: Any,
                 x_label: Optional[str] = 'x',
                 y_label: Optional[str] = 'y',
                 ngram_range: Optional[Tuple[int, int]] = (1, 1)) -> Pipeline:
@@ -25,7 +26,7 @@ def train_model(train_df: pd.DataFrame,
             )
         ),
         ('tfidf', TfidfTransformer()),
-        ('clf', MultinomialNB())
+        ('clf', model)
     ])
     text_clf.fit(train_df[x_label], train_df[y_label])
     return text_clf
