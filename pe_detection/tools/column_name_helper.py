@@ -7,10 +7,10 @@ def parse_columns(df: pd.DataFrame) -> dict:
 
     columns = [c for c in df.columns if c!= 'doc_idx']
     data = {}
-    data['datasets'] = set([c.split('.')[0] for c in columns])
-    data['language_pairs'] = set([c.split('.')[1] for c in columns])
-    data['preprocessing_steps'] = set(['.'.join(c.split('.')[4:])
-                                       for c in columns])
+    data['datasets'] = sorted(set([c.split('.')[0] for c in columns]))
+    data['language_pairs'] = sorted(set([c.split('.')[1] for c in columns]))
+    data['preprocessing_steps'] = sorted(set(['.'.join(c.split('.')[4:])
+                                       for c in columns]))
     data['translation_modes'] = {}
     for lp in data['language_pairs']:
         this_lp = [c for c in columns if lp in c]
