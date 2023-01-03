@@ -10,6 +10,7 @@ def text_col_to_pos(df: pd.DataFrame, pipeline: str, col_label_or_labels: Option
         col_label_or_labels = [col_label_or_labels]
     for c in col_label_or_labels:
         df[c] = df[c].apply(lambda x: pos_tags(x, pipeline))
+    return df
     
 
 # ====================
