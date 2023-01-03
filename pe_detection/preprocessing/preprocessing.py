@@ -9,7 +9,7 @@ def text_col_to_pos(df: pd.DataFrame, pipeline: str, col_label_or_labels: Option
     if isinstance(col_label_or_labels, str):
         col_label_or_labels = [col_label_or_labels]
     for c in col_label_or_labels:
-        df[col_label_or_labels] = df[col_label_or_labels].apply(lambda x: pos_tags(x, pipeline))
+        df[c] = df[c].apply(lambda x: pos_tags(x, pipeline))
     
 
 # ====================
