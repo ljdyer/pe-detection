@@ -5,3 +5,4 @@ pandas
 requests
 scikit-learn==1.0.2
 more_itertools
+spacy
