@@ -10,7 +10,8 @@ from numpy import linspace
 
 # ====================
 def token_counts_histogram(token_counts_df: pd.DataFrame,
-                           ignore_cols: Optional[list] = None):
+                           ignore_cols: Optional[list] = None,
+                           title: str = None):
     """Display a histogram showing distribution of token counts for all
     columns in token counts DataFrame.
 
@@ -39,8 +40,10 @@ def token_counts_histogram(token_counts_df: pd.DataFrame,
     for col in token_counts_df.columns:
         token_counts_df[col].hist(ax=axes[0], color=col_colors[col], bins=bins)
         legend_patches.append(mpatches.Patch(color=col_colors[col], label=col))
+    axes[0].set_xlabel('Number of words per pseudo-paragraph')
+    axes[0].set_ylabel('Number of pseudo-paragraphs')
     axes[1].axis('off')
-    axes[1].legend(handles=legend_patches, ncol=5)
+    axes[1].legend(handles=legend_patches, ncol=5, bbox_to_anchor=[0.5, 0.5], loc='center')
 
 
 # ====================
