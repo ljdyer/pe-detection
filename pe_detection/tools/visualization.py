@@ -40,12 +40,12 @@ def token_counts_histogram(token_counts_df: pd.DataFrame,
     for col in token_counts_df.columns:
         token_counts_df[col].hist(ax=axes[0], color=col_colors[col], bins=bins)
         legend_patches.append(mpatches.Patch(color=col_colors[col], label=col))
-    axes[0].set_xlabel('Number of words per pseudo-paragraph')
-    axes[0].set_ylabel('Number of pseudo-paragraphs')
+    axes[0].set_xlabel('Number of words per pseudo-paragraph', fontsize=14)
+    axes[0].set_ylabel('Number of pseudo-paragraphs', fontsize=14)
     if title is not None:
-        axes[0].set_title(title)
+        axes[0].set_title(title, fontsize=20)
     axes[1].axis('off')
-    axes[1].legend(handles=legend_patches, ncol=5, bbox_to_anchor=[0.5, 1], loc='center')
+    axes[1].legend(handles=legend_patches, ncol=5, bbox_to_anchor=[0.5, 0.8], loc='center')
 
 
 # ====================
