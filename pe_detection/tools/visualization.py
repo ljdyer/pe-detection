@@ -45,7 +45,7 @@ def token_counts_histogram(token_counts_df: pd.DataFrame,
     if title is not None:
         axes[0].set_title(title, fontsize=20)
     axes[1].axis('off')
-    axes[1].legend(handles=legend_patches, ncol=5, bbox_to_anchor=[0.5, 0.8], loc='center')
+    axes[1].legend(handles=legend_patches, ncol=5, bbox_to_anchor=[0.5, 0.9], loc='center')
 
 
 # ====================
