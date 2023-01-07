@@ -68,7 +68,7 @@ def get_posteditese_mtsummit19_data(dataset: str) -> pd.DataFrame:
         files in the dataset directory
     """
 
-    if dataset.lower() not in ['MS', 'taraxu', 'wit3']:
+    if dataset.lower() not in ['ms', 'taraxu', 'wit3']:
         raise ValueError(
             "dataset should be one of 'MS', 'taraxu', or 'wit3', " + \
             f"not {dataset}."
