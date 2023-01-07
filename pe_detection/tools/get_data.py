@@ -1,4 +1,5 @@
 import html
+from typing import List, Optional
 from urllib.parse import urljoin
 
 import bs4
@@ -50,7 +51,9 @@ def get_github_dirlist(dir_url: str) -> dict:
 
 
 # ====================
-def get_posteditese_mtsummit19_data(dataset: str) -> pd.DataFrame:
+def get_posteditese_mtsummit19_data(dataset: str,
+                                    tags: Optional[List[str]] = None) -> pd.DataFrame:
+
     """Get a pandas DataFrame combining all available data from files
     containing the specified tags for data in the datasets at
     https://github.com/antot/posteditese_mtsummit19/tree/master/datasets/
@@ -68,6 +71,8 @@ def get_posteditese_mtsummit19_data(dataset: str) -> pd.DataFrame:
         files in the dataset directory
     """
 
+    if tags is None:
+        tags = []
     if dataset.lower() not in ['ms', 'taraxu', 'wit3']:
         raise ValueError(
             "dataset should be one of 'MS', 'taraxu', or 'wit3', " + \
@@ -77,7 +82,8 @@ def get_posteditese_mtsummit19_data(dataset: str) -> pd.DataFrame:
         "https://github.com/antot/posteditese_mtsummit19/tree/master/datasets/",
         dataset
     ))
-    files = {f: url for f, url in dirlist.items() if url != 'DIR'}
+    files = {f: url for f, url in dirlist.items() 
+             if url != 'DIR' and all(t in f for t in tags)}
     df = pd.DataFrame()
     len_ = -1
     for file, url in files.items():
