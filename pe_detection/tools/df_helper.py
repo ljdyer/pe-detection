@@ -93,8 +93,12 @@ def zip_words_series(series1: pd.Series, series2: pd.Series) -> pd.Series:
     for text1, text2 in zip(list1, list2):
         text1_split = text1.split()
         text2_split = text2.split()
-        if len(text1_split) != len(text2_split):
-            raise RuntimeError('Texts do not have same number of tokens.')
+        len_text1 = len(text1_split)
+        len_text2 = len(text2_split)
+        if len_text1 != len_text2:
+            raise RuntimeError(
+                f"Texts do not have same number of tokens. Text 1: {len_text1}; Text 2: {len_text2}"
+            )
         zipped_list.append(' '.join([f"{word1}_{word2}" for word1, word2 in zip(text1_split, text2_split)]))
     return pd.Series(zipped_list)
 
