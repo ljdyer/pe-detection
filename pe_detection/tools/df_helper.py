@@ -82,3 +82,20 @@ def token_counts_df(df: pd.DataFrame,
 def col_token_count(df: pd.DataFrame, col: str) -> int:
 
     return token_counts_df(df[[col]]).sum()
+
+
+# ====================
+def zip_words_series(series1: pd.Series, series2: pd.Series) -> pd.Series:
+
+    list1 = series1.to_list()
+    list2 = series2.to_list()
+    zipped_list = []
+    for text1, text2 in zip(list1, list2):
+        text1_split = text1.split()
+        text2_split = text2.split()
+        if len(text1_split) != len(text2_split):
+            raise RuntimeError('Texts do not have same number of tokens.')
+        zipped_list.append(' '.join([f"{word1}_{word2}" for word1, word2 in zip(text1_split, text2_split)]))
+    return pd.Series(zipped_list)
+
+
