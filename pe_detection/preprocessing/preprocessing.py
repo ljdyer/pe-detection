@@ -23,7 +23,7 @@ def apply_pos_to_series(series: pd.Series, pipeline: str) -> pd.Series:
 
     if pipeline not in NLP:
         NLP[pipeline] = spacy.load(pipeline)
-    texts = series.to_list
+    texts = series.to_list()
     pos = [pos_tags(x, pipeline) for x in texts]
     return pd.Series(pos)
 
