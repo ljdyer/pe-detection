@@ -19,6 +19,16 @@ def text_col_to_pos(df: pd.DataFrame, pipeline: str, col_label_or_labels: Option
 
 
 # ====================
+def apply_pos_to_col(df: pd.DataFrame, pipeline: str, col_label: str) -> pd.Series:
+
+    if pipeline not in NLP:
+        NLP[pipeline] = spacy.load(pipeline)
+    texts = df[col_label].to_list
+    pos = [pos_tags(x, pipeline) for x in texts]
+    return pd.Series(pos)
+
+
+# ====================
 def pos_tags(doc: str, pipeline: str) -> str:
 
     if pipeline not in NLP:

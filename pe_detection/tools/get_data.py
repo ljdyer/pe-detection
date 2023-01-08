@@ -83,7 +83,7 @@ def get_posteditese_mtsummit19_data(dataset: str,
         dataset
     ))
     files = {f: url for f, url in dirlist.items() 
-             if url != 'DIR' and all(t in f for t in tags)}
+             if url != 'DIR' and all(t in f for t in tags) }
     df = pd.DataFrame()
     len_ = -1
     for file, url in files.items():
