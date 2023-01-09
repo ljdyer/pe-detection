@@ -25,6 +25,14 @@ def apply_pos_to_series(series: pd.Series, pipeline: str) -> pd.Series:
         NLP[pipeline] = spacy.load(pipeline)
     texts = series.to_list()
     pos = [pos_tags(x, pipeline) for x in texts]
+    for idx, text_pos in enumerate(zip(texts, pos)):
+        text, pos_ = text_pos
+        if len(text.split()) != len(pos.split()):
+            raise ValueError(
+                'Different lengths. ' +\
+                "{idx}..." +\
+                f"{len(text.split())}, {len(pos.split())}"
+            )
     return pd.Series(pos)
 
 
