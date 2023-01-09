@@ -27,11 +27,11 @@ def apply_pos_to_series(series: pd.Series, pipeline: str) -> pd.Series:
     pos = [pos_tags(x, pipeline) for x in texts]
     for idx, text_pos in enumerate(zip(texts, pos)):
         text, pos_ = text_pos
-        if len(text.split()) != len(pos.split()):
+        if len(text.split()) != len(pos_.split()):
             raise ValueError(
                 'Different lengths. ' +\
-                "{idx}..." +\
-                f"{len(text.split())}, {len(pos.split())}"
+                f"{idx}..." +\
+                f"{len(text.split())}, {len(pos_.split())}"
             )
     return pd.Series(pos)
 
