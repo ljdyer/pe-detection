@@ -2,6 +2,8 @@ from typing import Optional, List, Dict, Union, Tuple
 from more_itertools import windowed
 import pandas as pd
 
+from pe_detection.tools.column_name_helper import get_column_name
+
 
 # ====================
 def paras_df_to_xy_df(paras_df: pd.DataFrame,
@@ -98,38 +100,19 @@ def ngram_overlap(text1, text2, n) -> float:
     return ngram_overlap
 
 
-# def split_by_column(df: pd.DataFrame, column: str) -> dict:
+# ====================
+def get_cols_to_classes(dataset: str,
+                        language_pair: str,
+                        preprocessing_steps: str,
+                        systems: List[str],
+                        labels: List[str]) -> Dict[str, str]:
 
-#     vals = df[column].to_list()
-#     dfs = {val: df[df[column] == val].drop(columns=[column]).reset_index(drop=True) for val in vals}
-#     return dfs
-
-# # ====================
-# def append_diffs(df: pd.DataFrame, X_columns: list, ref_column: str, ngrams: Tuple[int, int]) -> pd.DataFrame:
-
-#     new_df = df.copy()
-#     ref_texts = df[ref_column].to_list()
-#     ngram_range = list(range(ngrams[0], ngrams[1]+1))
-#     ref_ngrams = {}
-#     for n in ngram_range:
-#         ref_ngrams[n] = [set(windowed(x.split(), n=n, step=n)) for x in ref_texts]
-#     for col in X_columns:
-#         texts = df[col].to_list()
-#         for n in ngram_range:
-#             ngrams = [set(windowed(x.split(), n=n, step=n)) for x in texts]
-#             ngram_diffs = [len(this.difference(ref)) / len(this) for this, ref in zip(ngrams, ref_ngrams[n])]
-#             new_df[f"{col}_diff_{ref_column}_{n}gram"] = pd.Series(ngram_diffs)
-#     return new_df
-
-# # ====================
-# def split_and_label(df: pd.DataFrame, categories: list, main_col: str, label_col: str) -> pd.DataFrame:
-
-#     dfs = []
-#     for cat in categories:
-#         cols_as_is = [col for col in df.columns if col.startswith(cat)]
-#         cols_to_be = [main_col if col == cat else col.replace(f"{cat}_", "") for col in cols_as_is]
-#         df_ = df[cols_as_is]
-#         df_.columns = cols_to_be
-#         df_.insert(len(df_.columns), label_col, cat)
-#         dfs.append(df_)
-#     return pd.concat(dfs)
+    if len(systems) != len(labels):
+        raise ValueError(
+            "Lists of systems and labels should have the same length. " +\
+            f"len(systems) = {len(systems)} but len(labels) = {len(labels)}."
+        )
+    return {
+        get_column_name(language_pair, system, preprocessing_steps, dataset): label
+        for system, label in zip(systems, labels)
+    }
