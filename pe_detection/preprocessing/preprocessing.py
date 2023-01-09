@@ -37,7 +37,7 @@ def pos_tags(doc: str, pipeline: str) -> Tuple[str, str]:
         NLP[pipeline] = spacy.load(pipeline)
     nlp = NLP[pipeline]
     doc_ = nlp(doc)
-    doc_tok = [t for t in doc_]
+    doc_tok = [t.text for t in doc_]
     doc_pos = [t.pos_ for t in doc_]
     assert len(doc_tok) == len(doc_pos)
     return ' '.join(doc_tok), ' '.join(doc_pos)
