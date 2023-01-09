@@ -19,7 +19,7 @@ def text_col_to_pos(df: pd.DataFrame, pipeline: str, col_label_or_labels: Option
 
 
 # ====================
-def apply_pos_to_series(series: pd.Series, pipeline: str) -> Tuple(pd.Series):
+def apply_pos_to_series(series: pd.Series, pipeline: str) -> Tuple[pd.Series]:
 
     if pipeline not in NLP:
         NLP[pipeline] = spacy.load(pipeline)
@@ -31,7 +31,7 @@ def apply_pos_to_series(series: pd.Series, pipeline: str) -> Tuple(pd.Series):
 
 
 # ====================
-def pos_tags(doc: str, pipeline: str) -> Tuple(str, str):
+def pos_tags(doc: str, pipeline: str) -> Tuple[str, str]:
 
     if pipeline not in NLP:
         NLP[pipeline] = spacy.load(pipeline)

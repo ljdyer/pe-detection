@@ -136,3 +136,11 @@ def train_test_split(df: pd.DataFrame,
     train_df = df[df['doc_idx'].isin(doc_idxs_train)]
     test_df = df[~df['doc_idx'].isin(doc_idxs_train)]
     return train_df, test_df
+
+
+# ====================
+def folds(items: list) -> List[Tuple[list, list]]:
+
+    return \
+        [([i for i in items if i != item], [item])
+         for item in items]
