@@ -1,4 +1,4 @@
-from typing import Optional, Union, List
+from typing import Optional, Union, List, Tuple
 import pandas as pd
 import spacy
 
@@ -19,23 +19,25 @@ def text_col_to_pos(df: pd.DataFrame, pipeline: str, col_label_or_labels: Option
 
 
 # ====================
-def apply_pos_to_series(series: pd.Series, pipeline: str) -> pd.Series:
+def apply_pos_to_series(series: pd.Series, pipeline: str) -> Tuple(pd.Series):
 
     if pipeline not in NLP:
         NLP[pipeline] = spacy.load(pipeline)
     texts = series.to_list()
-    pos = [pos_tags(x, pipeline) for x in texts]
-    return pd.Series(pos)
+    new_pos = [pos_tags(x, pipeline) for x in texts]
+    new = pd.Series(new for new, _ in new_pos)
+    pos = pd.Series(pos for _, pos in new_pos)
+    return new, pos
 
 
 # ====================
-def pos_tags(doc: str, pipeline: str) -> str:
+def pos_tags(doc: str, pipeline: str) -> Tuple(str, str):
 
     if pipeline not in NLP:
         NLP[pipeline] = spacy.load(pipeline)
     nlp = NLP[pipeline]
     doc_ = nlp(doc)
-    if len([t.pos_ for t in doc_]) != len(doc.split()):
-        print(doc)
-        quit()
-    return ' '.join([t.pos_ for t in doc_])
+    doc_tok = [t_ for t_ in doc]
+    doc_pos = [t.pos_ for t in doc_]
+    assert len(doc_tok) == len(doc_pos)
+    return ' '.join(doc_tok), ' '.join(doc_pos)
