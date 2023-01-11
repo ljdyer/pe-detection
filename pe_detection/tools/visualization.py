@@ -52,26 +52,29 @@ def token_counts_histogram(token_counts_df: pd.DataFrame,
 def visualize_diffs(diffs_df: pd.DataFrame,
                     dim1: str,
                     dim2: str = None,
+                    x_axis: str = None,
+                    y_axis: str = None,
                     title: str = None):
 
     if dim2 is None:
-        diffs_boxplot(diffs_df, dim1, title)
+        diffs_boxplot(diffs_df, dim1, x_axis, y_axis, title)
     else:
-        diffs_scatter(diffs_df, dim1, dim2, title)
+        diffs_scatter(diffs_df, dim1, dim2, x_axis, y_axis, title)
 
 
 # ====================
 def diffs_boxplot(diffs_df: pd.DataFrame,
                   dim1: str,
+                  x_axis: str = None,
+                  y_axis: str = None,
                   title: str = None):
 
     categories = list(set(diffs_df['y'].to_list()))
     points = [diffs_df[diffs_df['y'] == c][dim1].to_list() for c in categories]
     _, ax = plt.subplots()
-    if title is not None:
-        ax.set_title(title)
-    ax.set_xlabel(dim1)
-    ax.set_ylabel('Mode')
+    ax.set_title(title)
+    ax.set_xlabel(x_axis if x_axis is not None else dim1)
+    ax.set_ylabel(y_axis)
     ax.set_xlim([0, 1])
     boxplot = ax.boxplot(points, labels=categories, vert=False)
 
@@ -80,6 +83,8 @@ def diffs_boxplot(diffs_df: pd.DataFrame,
 def diffs_scatter(diffs_df: pd.DataFrame,
                   dim1: str,
                   dim2: str,
+                  x_axis: str = None,
+                  y_axis: str = None,
                   title: str = None):
 
     cividis = get_cmap('cividis')
@@ -93,10 +98,9 @@ def diffs_scatter(diffs_df: pd.DataFrame,
         for c in categories
     ]
     _, ax = plt.subplots()
-    if title is not None:
-        ax.set_title(title)
-    ax.set_xlabel(dim1)
-    ax.set_ylabel(dim2)
+    ax.set_title(title)
+    ax.set_xlabel(x_axis if x_axis is not None else dim1)
+    ax.set_ylabel(y_axis if y_axis is not None else dim2)
     ax.set_xlim([0, 1])
     ax.set_ylim([0, 1])
     legend_patches = []
