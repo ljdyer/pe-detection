@@ -71,7 +71,7 @@ def diffs_boxplot(diffs_df: pd.DataFrame,
 
     categories = list(set(diffs_df['y'].to_list()))
     points = [diffs_df[diffs_df['y'] == c][dim1].to_list() for c in categories]
-    _, ax = plt.subplots(figsize=(20, 20))
+    _, ax = plt.subplots(figsize=(20, 10))
     ax.set_title(title)
     ax.set_xlabel(x_axis if x_axis is not None else dim1)
     ax.set_ylabel(y_axis)
@@ -97,7 +97,7 @@ def diffs_scatter(diffs_df: pd.DataFrame,
         )
         for c in categories
     ]
-    _, ax = plt.subplots(figsize=(20, 20))
+    _, ax = plt.subplots(figsize=(20, 10))
     ax.set_title(title)
     ax.set_xlabel(x_axis if x_axis is not None else dim1)
     ax.set_ylabel(y_axis if y_axis is not None else dim2)
