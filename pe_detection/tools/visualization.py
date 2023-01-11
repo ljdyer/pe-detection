@@ -108,4 +108,4 @@ def diffs_scatter(diffs_df: pd.DataFrame,
         color = cividis(color_idx)
         scatter = ax.scatter(*pts, color=color)
         legend_patches.append(mpatches.Patch(color=color, label=cat))
-    ax.legend(handles=legend_patches, loc='upper left')
+    ax.legend(handles=legend_patches, loc='upper left' fontsize=14)
