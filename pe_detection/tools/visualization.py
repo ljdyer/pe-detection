@@ -72,9 +72,9 @@ def diffs_boxplot(diffs_df: pd.DataFrame,
     categories = list(set(diffs_df['y'].to_list()))
     points = [diffs_df[diffs_df['y'] == c][dim1].to_list() for c in categories]
     _, ax = plt.subplots(figsize=(20, 10))
-    ax.set_title(title)
-    ax.set_xlabel(x_axis if x_axis is not None else dim1)
-    ax.set_ylabel(y_axis)
+    ax.set_title(title, fontsize=20)
+    ax.set_xlabel(x_axis if x_axis is not None else dim1, fontsize=14)
+    ax.set_ylabel(y_axis, fontsize=14)
     ax.set_xlim([0, 1])
     boxplot = ax.boxplot(points, labels=categories, vert=False)
 
@@ -98,9 +98,9 @@ def diffs_scatter(diffs_df: pd.DataFrame,
         for c in categories
     ]
     _, ax = plt.subplots(figsize=(20, 10))
-    ax.set_title(title)
-    ax.set_xlabel(x_axis if x_axis is not None else dim1)
-    ax.set_ylabel(y_axis if y_axis is not None else dim2)
+    ax.set_title(title, fontsize=20)
+    ax.set_xlabel(x_axis if x_axis is not None else dim1, fontsize=14)
+    ax.set_ylabel(y_axis if y_axis is not None else dim2, fontsize=14)
     ax.set_xlim([0, 1])
     ax.set_ylim([0, 1])
     legend_patches = []
