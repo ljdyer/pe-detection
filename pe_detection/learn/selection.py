@@ -12,8 +12,8 @@ def get_single_best(metrics_df: pd.DataFrame,
 
     Args:
       metrics_df (pd.DataFrame):
-        A DataFrame where each column label is the name of a model
-        and each row label is the name of a metric.
+        A DataFrame where each row label is the name of a model
+        and each column label is the name of a metric.
       metric (str, optional):
         The metric to maximise. Defaults to 'accuracy'.
 
@@ -23,7 +23,7 @@ def get_single_best(metrics_df: pd.DataFrame,
         for the metric, and the metric score for that model.
     """    
 
-    return metrics_df.idxmax(metric), metrics_df[metric].max()
+    return metrics_df.idxmax()[metric], metrics_df[metric].max()
 
 
 # ====================
@@ -48,6 +48,6 @@ def get_metrics_df(predictions_df: pd.DataFrame,
     y_true = predictions_df['y_true']
     metrics_df = pd.DataFrame()
     for model in model_predictions.columns:
-        metrics_df.at['accuracy', model] = \
+        metrics_df.at[model, 'accuracy'] = \
             accuracy_score(y_true, model_predictions[model])
     return metrics_df
