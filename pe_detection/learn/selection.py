@@ -54,7 +54,7 @@ def get_metrics_df(predictions_df: pd.DataFrame,
 
 
 # ====================
-def get_votes_df(predictions_df: pd.DataFrame) -> pd.DataFrame:
+def get_votes_df(predictions_df: pd.DataFrame) -> Tuple[pd.DataFrame, List[str]]:
 
     individual_predictions = predictions_df.drop(columns=['y_true'])
     models = individual_predictions.columns
@@ -68,4 +68,13 @@ def get_votes_df(predictions_df: pd.DataFrame) -> pd.DataFrame:
         votes_df[bin_] = cols.mode(axis=1)[0]
     if 'y_true' in predictions_df.columns:
         votes_df['y_true'] = predictions_df['y_true']
-    return votes_df
+    return votes_df, models
+
+
+# ====================
+def ensemble_name_to_model_list(models: List[str],
+                                ensemble_name: str) -> List[str]:
+
+    return [models[i] for i, x in enumerate(ensemble_name) if x == '1']
+
+    
