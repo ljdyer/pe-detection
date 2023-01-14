@@ -51,3 +51,19 @@ def get_metrics_df(predictions_df: pd.DataFrame,
         metrics_df.at[model, 'accuracy'] = \
             accuracy_score(y_true, model_predictions[model])
     return metrics_df
+
+
+# ====================
+def get_votes_df(predictions_df: pd.DataFrame) -> pd.DataFrame:
+
+    individual_predictions = predictions_df.drop(columns=['y_true'])
+    models = individual_predictions.columns
+    num_models = len(models)
+    votes_df = pd.DataFrame()
+    for i in range(1, int('1' * num_models, 2)):
+        bin_ = bin(i)[2:].zfill(num_models)
+        cols = individual_predictions[
+            [models[j] for j in range(num_models) if bin_[j] == '1']
+        ]
+        votes_df[bin_] = cols.mode(axis=1)[0]
+    
