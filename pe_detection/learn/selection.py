@@ -66,4 +66,6 @@ def get_votes_df(predictions_df: pd.DataFrame) -> pd.DataFrame:
             [models[j] for j in range(num_models) if bin_[j] == '1']
         ]
         votes_df[bin_] = cols.mode(axis=1)[0]
+    if 'y_true' in predictions_df.columns:
+        votes_df['y_true'] = predictions_df['y_true']
     return votes_df
