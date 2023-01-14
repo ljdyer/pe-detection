@@ -6,8 +6,24 @@ from sklearn.metrics import accuracy_score
 # ====================
 def get_single_best(metrics_df: pd.DataFrame,
                     metric='accuracy') -> Tuple[str, float]:
+    """Given a DataFrame of metrics for multiple models and a metric
+    to maximise, return the name of the model with the highest value
+    for that metric, and the metric score for that model
 
-    return metrics_df.idxmax[metric], metrics_df[metric].max()
+    Args:
+      metrics_df (pd.DataFrame):
+        A DataFrame where each column label is the name of a model
+        and each row label is the name of a metric.
+      metric (str, optional):
+        The metric to maximise. Defaults to 'accuracy'.
+
+    Returns:
+      Tuple[str, float]:
+        The name of the model with the highest value
+        for the metric, and the metric score for that model.
+    """    
+
+    return metrics_df.idxmax(metric), metrics_df[metric].max()
 
 
 # ====================
