@@ -52,6 +52,12 @@ def sents_df_to_paras_df(df: pd.DataFrame) -> pd.DataFrame:
 
 
 # ====================
+def add_mean_row(df: pd.DataFrame) -> pd.DataFrame:
+
+    df.loc['mean'] = df.mean()
+    return df
+
+# ====================
 def token_counts_df(df: pd.DataFrame,
                     ignore_cols: Optional[list] = None) -> pd.DataFrame:
     """Replace each element of a pandas DataFrame (except those in columns
