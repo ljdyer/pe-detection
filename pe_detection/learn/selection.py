@@ -48,6 +48,6 @@ def get_metrics_df(predictions_df: pd.DataFrame,
     y_true = predictions_df['y_true']
     metrics_df = pd.DataFrame()
     for model in model_predictions.columns:
-        metrics_df.at[model, 'accuracy'] = \
+        metrics_df.at['accuracy', model] = \
             accuracy_score(y_true, model_predictions[model])
     return metrics_df
