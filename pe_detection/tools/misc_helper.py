@@ -11,4 +11,4 @@ def get_digits(string: str) -> str:
         Only the digits part of the string (e.g. "123")
     """    
 
-    return [''.join(c) for c in string if c.isdigit()]
+    return ''.join([c for c in string if c.isdigit()])
