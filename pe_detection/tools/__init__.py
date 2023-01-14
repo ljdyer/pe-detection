@@ -6,5 +6,6 @@ from pe_detection.tools.label_paras import *
 from pe_detection.tools.pandas_helper import *
 from pe_detection.tools.text_helper import *
 from pe_detection.tools.train_test_split import *
+from pe_detection.tools.misc_helper import *
 from pe_detection.tools.transform_data import *
 from pe_detection.tools.visualization import *
