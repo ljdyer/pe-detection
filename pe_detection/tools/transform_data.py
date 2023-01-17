@@ -105,7 +105,8 @@ def get_cols_to_classes(dataset: str,
                         language_pair: str,
                         preprocessing_steps: str,
                         systems: List[str],
-                        labels: List[str]) -> Dict[str, str]:
+                        labels: List[str],
+                        prefix: str = '') -> Dict[str, str]:
 
     if len(systems) != len(labels):
         raise ValueError(
@@ -113,6 +114,6 @@ def get_cols_to_classes(dataset: str,
             f"len(systems) = {len(systems)} but len(labels) = {len(labels)}."
         )
     return {
-        get_column_name(language_pair, system, preprocessing_steps, dataset): label
+        prefix + get_column_name(language_pair, system, preprocessing_steps, dataset): label
         for system, label in zip(systems, labels)
     }
